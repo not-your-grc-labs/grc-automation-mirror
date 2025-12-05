@@ -5,13 +5,13 @@ Its purpose is to explain where services live, how accounts interact, and how th
 ## 1. AWS Organisation Structure
 The lab uses a four-account AWS Organisation aligned to common enterprise security patterns:
 
-Management Account
+**Management Account**
     - Root payer account
     - Home of IAM Identity Center (SSO)
     - Stores Terraform configuration (S3 backend planned)
     - Runs Athena for cross-account reporting and analytics
 
-Security Account
+**Security Account**
     - Delegated administrator for security services:
     - CloudTrail (organization-wide logging)
     - AWS Config Aggregator
@@ -20,12 +20,12 @@ Security Account
     - Inspector (vulnerability metadata)
     - Stores central logs in encrypted S3 buckets
 
-Management Account
+**Management Account**
     - Hosts Lambda functions or SSM Automation runbooks for automated remediation
     - Hosts terraform state file
     - Athena used to generate metrics and reports from data in Security Account
 
-Lab (Workload) Account
+**Lab (Workload) Account**
 Dedicated environment for deploying and testing:
     - Workloads (e.g., EC2 / Beanstalk application)
     - Infrastructure-as-Code (Terraform)
