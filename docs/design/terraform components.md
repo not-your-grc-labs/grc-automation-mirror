@@ -1,11 +1,11 @@
-GRC Automation Lab – Terraform Components
+**GRC Automation Lab – Terraform Components**
 
 
-##providers.tf##
+#providers.tf
 Purpose: Define AWS provider settings such as region and profile.
 Includes: provider "aws" block, profile name, region, authentication.
 
-##versions.tf##
+#versions.tf
 Purpose: Lock Terraform and provider versions.
 Includes required_version and required_providers blocks.
 
