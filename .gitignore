@@ -1,1 +1,17 @@
+# drawio
 *.bkp
+
+# macOS
+.DS_Store
+
+# Terraform
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+*.bin
+.crash.log
+
