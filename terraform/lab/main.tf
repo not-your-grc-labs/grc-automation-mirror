@@ -9,5 +9,7 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
-  profile = "terraform-auto"
+  assume_role {
+    role_arn = "arn:aws:iam::613208686879:role/TerraformDeployment"
+  } 
 }
