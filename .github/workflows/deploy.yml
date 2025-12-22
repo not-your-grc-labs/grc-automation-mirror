@@ -31,6 +31,29 @@ jobs:
         with:
           terraform_version: 1.7.5
 
+      - name: Debug - show working directory
+        run: |
+          echo "PWD:"
+          pwd
+          echo "Contents:"
+          ls -la
+
+      - name: Debug - list terraform files
+        run: |
+          echo "Terraform files:"
+          ls -la *.tf || true
+          echo "Backend file (if present):"
+          ls -la backend.tf || true
+
+      - name: Debug - print backend config (safe)
+        run: |
+          if [ -f backend.tf ]; then
+            echo "backend.tf contents:"
+            sed -n '1,200p' backend.tf
+          else
+            echo "backend.tf NOT FOUND in this directory"
+          fi
+
       - name: Terraform Init
         run: terraform init
 
