@@ -14,7 +14,8 @@ jobs:
     defaults:
       run:
         working-directory: terraform/lab
-        
+    env:
+      TF_VAR_DB_PASSWORD: ${{ secrets.TF_VAR_RDS_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
