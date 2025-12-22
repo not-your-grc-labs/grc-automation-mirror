@@ -83,10 +83,3 @@ variable "rds_password" {
   type        = string
   sensitive = true
 }
-
-variable "test_db_name" {
-  description = "Test database name"
-  type        = string
-  default     = "testdb"
-  
-}
