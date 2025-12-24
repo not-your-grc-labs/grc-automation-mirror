@@ -28,7 +28,7 @@ jobs:
       - name: Configure AWS credentials (OIDC -> Ops backend role)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::526053389648:role/terraform-backend
+          role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
           aws-region: eu-west-2
 
       - name: Setup Terraform
