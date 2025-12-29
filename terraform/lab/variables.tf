@@ -68,7 +68,7 @@ variable "ssm_profile" {
 variable "home_ip" {
   description = "Your home IP address for web access"
   type        = string
-  default     = "104.28.86.111/32"
+  default     = "90.200.222.139/32"
 }
 
 variable "rds_username" {
