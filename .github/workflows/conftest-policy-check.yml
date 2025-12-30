@@ -39,6 +39,18 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
           aws-region: eu-west-2
+          
+      - name: "Debug rds_password var presence"
+        working-directory: terraform/lab
+        env:
+          TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
+        run: |
+          if [ -n "${TF_VAR_rds_password:-}" ]; then
+            echo "TF_VAR_rds_password is set"
+            echo "Length: ${#TF_VAR_rds_password}"
+          else
+            echo "TF_VAR_rds_password is NOT set"
+          fi
 
       - name: "Terraform init and plan to JSON"
         working-directory: terraform/lab
