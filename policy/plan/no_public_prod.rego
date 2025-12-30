@@ -1,4 +1,5 @@
 package plan
+import rego.v1
 
 # Control: CLOUD.PROD.NO_PUBLIC_RESOURCES
 # Intent: Prevent public exposure of production resources
