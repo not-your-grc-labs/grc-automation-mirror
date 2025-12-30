@@ -21,5 +21,5 @@ resource "aws_rds_cluster" "my_rds_cluster" {
   vpc_security_group_ids  = [aws_security_group.rds_security_group.id]
   db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
   skip_final_snapshot     = true
-  
+  storage_encrypted = false
 }
