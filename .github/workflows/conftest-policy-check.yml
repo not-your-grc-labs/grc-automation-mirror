@@ -44,7 +44,7 @@ jobs:
         working-directory: terraform/lab
         env:
           TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
-          run: |
+        run: |
           terraform init -input=false
           terraform plan -input=false -out tfplan.bin
           terraform show -json tfplan.bin > tfplan.json
