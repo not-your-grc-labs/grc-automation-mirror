@@ -14,7 +14,7 @@ name: "Conftest policy check"
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   conftest:
     runs-on: ubuntu-latest
@@ -42,7 +42,9 @@ jobs:
 
       - name: "Terraform init and plan to JSON"
         working-directory: terraform/lab
-        run: |
+        env:
+          TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
+          run: |
           terraform init -input=false
           terraform plan -input=false -out tfplan.bin
           terraform show -json tfplan.bin > tfplan.json
