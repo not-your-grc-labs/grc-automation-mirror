@@ -1,6 +1,7 @@
 name: "Conftest policy check"
 
 "on":
+  workflow_dispatch:
   pull_request:
     paths:
       - "terraform/**"
