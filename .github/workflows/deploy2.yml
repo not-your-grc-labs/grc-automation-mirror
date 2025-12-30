@@ -1,4 +1,4 @@
-name: Deploy Terraform (Lab)
+name: Manual Deploy Terraform (Lab)
 
 on:
   workflow_dispatch:
