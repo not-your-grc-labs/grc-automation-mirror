@@ -1,0 +1,68 @@
+name: Deploy Terraform (Lab)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type DEPLOY to confirm"
+        required: true
+        default: "no"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/lab
+    env:
+      TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC -> Ops role)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
+          aws-region: eu-west-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - name: Debug - show working directory
+        run: |
+          echo "PWD:"
+          pwd
+          echo "Contents:"
+          ls -la
+
+      - name: Debug - list terraform files
+        run: |
+          echo "Terraform files:"
+          ls -la *.tf || true
+          echo "Backend file (if present):"
+          ls -la backend.tf || true
+
+      - name: Debug - print backend config (safe)
+        run: |
+          if [ -f backend.tf ]; then
+            echo "backend.tf contents:"
+            sed -n '1,200p' backend.tf
+          else
+            echo "backend.tf NOT FOUND in this directory"
+          fi
+
+      - name: Terraform Init
+        run: terraform init -reconfigure
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
