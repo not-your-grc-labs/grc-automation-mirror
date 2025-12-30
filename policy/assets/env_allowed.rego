@@ -1,4 +1,5 @@
 package assets
+import rego.v1
 
 deny contains msg if {
 	not input.env
