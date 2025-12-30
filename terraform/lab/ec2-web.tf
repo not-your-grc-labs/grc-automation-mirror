@@ -16,6 +16,7 @@ resource "aws_instance" "web_server1" {
 
     tags = {
       Environmnent = "prod"
+      Public=true 
       Owner = "Andrew"
       "Managed by" = "Terraform"
       }
