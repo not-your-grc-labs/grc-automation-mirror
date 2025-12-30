@@ -1,6 +1,6 @@
-name: Conftest policy check
+name: "Conftest policy check"
 
-on:
+"on":
   pull_request:
     paths:
       - "terraform/**"
@@ -14,24 +14,12 @@ jobs:
   conftest:
     runs-on: ubuntu-latest
     steps:
-  - name: "Checkout repository"
-    uses: actions/checkout@v4
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
-  - name: "Setup Terraform"
-    uses: hashicorp/setup-terraform@v3
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v3
 
-  - name: "Install Conftest"
-    run: |
-      set -euo pipefail
-      V=0.56.0
-      curl -L -o conftest.tar.gz "https://github.com/open-policy-agent/conftest/releases/download/v${V}/conftest_${V}_Linux_x86_64.tar.gz"
-      tar -xzf conftest.tar.gz conftest
-      sudo mv conftest /usr/local/bin/
-      conftest --version
       - name: "Install Conftest"
         run: |
           set -euo pipefail
@@ -41,35 +29,20 @@ jobs:
           sudo mv conftest /usr/local/bin/
           conftest --version
 
-  - name: "Configure AWS credentials (OIDC)"
-    uses: aws-actions/configure-aws-credentials@v4
-    with:
-      role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
-      aws-region: eu-west-2
       - name: "Configure AWS credentials (OIDC)"
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
           aws-region: eu-west-2
 
-  - name: "Terraform init + plan -> JSON"
-    working-directory: terraform/lab
-    run: |
-      terraform init -input=false
-      terraform plan -input=false -out tfplan.bin
-      terraform show -json tfplan.bin > tfplan.json
-      - name: "Terraform init + plan -> JSON"
+      - name: "Terraform init and plan to JSON"
         working-directory: terraform/lab
         run: |
           terraform init -input=false
           terraform plan -input=false -out tfplan.bin
           terraform show -json tfplan.bin > tfplan.json
 
-  - name: "Conftest test (namespace: plan)"
-    working-directory: terraform/lab
-    run: |
-      conftest test tfplan.json -p ../../policy --namespace plan
-      - name: "Conftest test (namespace: plan)"
+      - name: "Conftest test (namespace plan)"
         working-directory: terraform/lab
         run: |
           conftest test tfplan.json -p ../../policy --namespace plan
