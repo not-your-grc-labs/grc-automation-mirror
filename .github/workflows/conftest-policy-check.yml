@@ -92,4 +92,4 @@ jobs:
           conftest test input/tfplan.json -p policy --namespace plan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform -chdir=terraform/scenarios/${SCENARIO} apply -auto-approve
