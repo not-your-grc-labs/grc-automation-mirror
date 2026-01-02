@@ -26,31 +26,20 @@ public_facing_tags := {
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types
-    tags := object.get(r.change.after, "tags_all", null)
+    tags := object.get(r.change.after, "tags_all", {})
 
     count(tags) == 0
-    msg := sprintf("Missing (empty) tags for %v (%v)", [r.address, r.type])
-}
-
-# Null tags
-deny contains msg if {
-    r := input.resource_changes[_]
-    r.type in storage_types
-    tags := object.get(r.change.after, "tags_all", null)
-
-    tags == null
-    msg := sprintf("Missing (null) tags for %v (%v)", [r.address, r.type])
+    msg := sprintf("Missing tags for %v (%v)", [r.address, r.type])
 }
 
 # Environment tags defined
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types
-    tags := object.get(r.change.after, "tags_all", null)
+    tags := object.get(r.change.after, "tags_all", {})
     
-    tags != null
     count(tags) > 0
-    not (tags["environment"] in env_tags)
+    not object.get(tags,"environment","") in env_tags
     msg := sprintf("Environment tag not defined or invalid for %v (%v)", [r.address, r.type])
 }
 
@@ -58,10 +47,9 @@ deny contains msg if {
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types
-    tags := object.get(r.change.after, "tags_all", null)
-   
-    tags != null
+    tags := object.get(r.change.after, "tags_all", {})
+
     count(tags) > 0
-    not (tags["public_facing"] in public_facing_tags)
+    not object.get(tags,"public_facing","") in public_facing_tags
     msg := sprintf("Public facing tag not defined or invalid for %v (%v)", [r.address, r.type])
 }

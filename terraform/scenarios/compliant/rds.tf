@@ -4,8 +4,10 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 
   tags = {
     Name        = "RDS Subnet Group"
-    Owner       = "Andrew"
-    "Managed by" = "Terraform"
+    environment = "prod"
+    owner       = "Andrew"
+    public_facing = false 
+    managed_by  = "Terraform"
   }
 }
 
