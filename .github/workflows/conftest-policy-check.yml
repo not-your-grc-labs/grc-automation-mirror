@@ -72,9 +72,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p input
-          terraform -chdir=terraform/${SCENARIO} init -input=false
-          terraform -chdir=terraform/${SCENARIO} plan -input=false -out=$LAB_ROOT/input/tfplan.bin
-          terraform -chdir=terraform/${SCENARIO} show -json $LAB_ROOT/input/tfplan.bin > input/tfplan.json
+          terraform -chdir=terraform/scenarios/${SCENARIO} init -input=false
+          terraform -chdir=terraform/scenarios/${SCENARIO} plan -input=false -out=$LAB_ROOT/input/tfplan.bin
+          terraform -chdir=terraform/scenarios/${SCENARIO} show -json $LAB_ROOT/input/tfplan.bin > input/tfplan.json
 
       - name: "Conftest test (namespace plan)"
         run: |
