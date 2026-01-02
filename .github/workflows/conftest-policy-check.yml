@@ -59,7 +59,8 @@ jobs:
       # If you're only running the noncompliant scenario for now, keep SCENARIO=noncompliant.
       # Later you can matrix this.
       - name: "Set scenario"
-        run: echo "SCENARIO=noncompliant" >> $GITHUB_ENV
+        run: echo "SCENARIO=${{ inputs.scenario }}" >> $GITHUB_ENV
+
       
       - name: "Lab root"
         run: echo LAB_ROOT=${{ github.workspace }} >> $GITHUB_ENV
