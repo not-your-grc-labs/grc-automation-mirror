@@ -22,10 +22,4 @@ resource "aws_rds_cluster" "my_rds_cluster" {
   db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
   skip_final_snapshot     = true
   storage_encrypted = false
-
-  tags = {
-    owner       = "Andrew"
-    managed_by = "Terraform"
-    environment = "prod"
-  }  
 }
