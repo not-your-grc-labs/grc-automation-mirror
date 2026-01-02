@@ -1,0 +1,67 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "eu-west-2"
+  profile = "terraform-auto"
+}
+
+resource "aws_instance" "prod_web_server" {
+  ami = var.ami
+  instance_type = var.instance_type
+  subnet_id = "subnet-068ef5d9d177405ec"
+  vpc_security_group_ids = ["sg-05a97c2bf11acee0e"]
+  iam_instance_profile  = data.aws_iam_instance_profile.ssm_profile.name
+  user_data = <<-EOF
+    #!/bin/bash
+    yum - update -y
+    yum install -y httpd
+    systemctl enable httpd
+    systemctl start httpd
+
+    echo "Hello from GRC lab 1" > /var/www/html/index.html
+    EOF
+
+    tags = {
+      Environmnent = "prod"
+      Owner = "Andrew"
+      "Managed by" = "Terraform"
+      }
+  }
+
+  resource "aws_instance" "dev_web_server" {
+  ami = var.ami
+  instance_type             = var.instance_type
+  subnet_id                 = "subnet-091785cdfd7f29d14"
+  vpc_security_group_ids    = ["sg-05a97c2bf11acee0e"]
+  iam_instance_profile  = data.aws_iam_instance_profile.ssm_profile.name
+  user_data = <<-EOF
+    #!/bin/bash
+    yum - update -y
+    yum install -y httpd
+    systemctl enable httpd
+    systemctl start httpd
+
+    echo "Hello from GRC lab 2" > /var/www/html/index.html
+    EOF
+
+      tags = {
+      Environmnent = "dev"
+      Owner = "Andrew"
+      "Managed by" = "Terraform"
+      } 
+    }
+
+    data "aws_iam_role" "ssm_role" {
+        name = "MySessionManagerRole"
+    }
+
+    data "aws_iam_instance_profile" "ssm_profile" {
+        name = "MySessionManagerRole"
+    }
