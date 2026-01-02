@@ -2,6 +2,15 @@ name: "Conftest policy check"
 
 on:
   workflow_dispatch:
+    inputs:
+      scenario:
+        description: "Choose Terraform scenario"
+        type: choice
+        required: true
+        default: compliant
+        options:
+          - compliant
+          - noncompliant
   pull_request:
     paths:
       - "terraform/**"
