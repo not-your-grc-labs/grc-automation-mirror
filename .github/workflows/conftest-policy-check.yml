@@ -90,3 +90,6 @@ jobs:
         run: |
           set -euo pipefail
           conftest test input/tfplan.json -p policy --namespace plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
