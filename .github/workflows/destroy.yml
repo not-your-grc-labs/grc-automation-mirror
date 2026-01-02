@@ -9,7 +9,7 @@ on:
         default: "no"
 
 permissions:
-  id-token: write   # required for OIDC
+  id-token: write
   contents: read
 
 jobs:
@@ -17,32 +17,24 @@ jobs:
     if: ${{ github.event.inputs.confirm == 'DESTROY' }}
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: terraform/lab
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Configure AWS credentials (OIDC -> Ops backend role)
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
           aws-region: eu-west-2
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.6
 
-      - name: Terraform Init (remote backend)
-        run: terraform init -reconfigure
+      - name: Terraform Init (compliant)
+        run: terraform -chdir=terraform/scenarios/compliant init -reconfigure -input=false
 
-      - name: Terraform Destroy
+      - name: Terraform Destroy (compliant)
         env:
           TF_IN_AUTOMATION: "true"
           TF_INPUT: "false"
-          # If your config requires this var even for destroy, set it as a repo secret:
           TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
-        run: terraform destroy -auto-approve
+        run: terraform -chdir=terraform/scenarios/compliant destroy -auto-approve -input=false
