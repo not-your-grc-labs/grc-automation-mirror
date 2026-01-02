@@ -18,8 +18,8 @@ env_tags := {
 }
 
 public_facing_tags := {
-    "public_facing",
-    "not_public_facing"
+    "true",
+    "false"
 }
 
 # Empty tags
