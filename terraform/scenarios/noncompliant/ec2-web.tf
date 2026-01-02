@@ -17,6 +17,7 @@ resource "aws_instance" "web_server1" {
     tags = {
       owner = "Andrew"
       managed_by = "Terraform"
+      public_facing = true
       }
   }
 
@@ -39,5 +40,6 @@ resource "aws_instance" "web_server1" {
     tags = {
       owner = "Andrew"
       managed_by = "Terraform"
+      public_facing = true
       }
   }
