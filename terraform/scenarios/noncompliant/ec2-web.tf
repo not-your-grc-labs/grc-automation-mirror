@@ -15,10 +15,8 @@ resource "aws_instance" "web_server1" {
     EOF
 
     tags = {
-      Environmnent = "prod"
-      Public=true 
-      Owner = "Andrew"
-      "Managed by" = "Terraform"
+      owner = "Andrew"
+      managed_by = "Terraform"
       }
   }
 
@@ -39,8 +37,7 @@ resource "aws_instance" "web_server1" {
     EOF
 
     tags = {
-      Environmnent = "dev"
-      Owner = "Andrew"
-      "Managed by" = "Terraform"
+      owner = "Andrew"
+      managed_by = "Terraform"
       }
   }

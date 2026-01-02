@@ -6,9 +6,9 @@
     subnets            = [aws_subnet.dmz_subnet1.id, aws_subnet.dmz_subnet2.id]
 
     tags = {
-      Name        = "WebLB"
-      Owner       = "Andrew"
-      "Managed by" = "Terraform"
+      name       = "WebLB"
+      owner       = "Andrew"
+      managed_by = "Terraform"
     }
   }
 
@@ -26,9 +26,9 @@ resource "aws_lb_target_group" "web_tg" {
     unhealthy_threshold = 2
   }
    tags = {
-    Name        = "WebTG"
-    Owner       = "Andrew"
-    "Managed by" = "Terraform"
+    name        = "WebTG"
+    owner       = "Andrew"
+    managed_by = "Terraform"
   }
 }
 

@@ -3,9 +3,9 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
   subnet_ids = [aws_subnet.dmz_subnet1.id, aws_subnet.dmz_subnet2.id]
 
   tags = {
-    Name        = "RDS Subnet Group"
-    Owner       = "Andrew"
-    "Managed by" = "Terraform"
+    name        = "RDS Subnet Group"
+    owner       = "Andrew"
+    managed_by = "Terraform"
   }
 }
 
