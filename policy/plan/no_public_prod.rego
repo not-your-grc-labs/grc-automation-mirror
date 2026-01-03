@@ -1,4 +1,4 @@
-package plan
+package test
 import rego.v1
 
 # Control: CLOUD.PROD.NO_PUBLIC_RESOURCES
