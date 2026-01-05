@@ -15,3 +15,6 @@
 *.bin
 .crash.log
 
+# Terraform plan outputs
+tfplan.json
+tfplan.bin
