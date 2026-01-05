@@ -11,14 +11,6 @@ on:
         options:
           - compliant
           - noncompliant
-  pull_request:
-    paths:
-      - "terraform/**"
-      - "policy/**"
-  push:
-    paths:
-      - "terraform/**"
-      - "policy/**"
 
 permissions:
   id-token: write
@@ -65,24 +57,17 @@ jobs:
       - name: "Lab root"
         run: echo LAB_ROOT=${{ github.workspace }} >> $GITHUB_ENV
 
-      - name: "Debug rds_password var presence"
-        env:
-          TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
-        run: |
-          if [ -n "${TF_VAR_rds_password:-}" ]; then
-            echo "TF_VAR_rds_password is set"
-            echo "Length: ${#TF_VAR_rds_password}"
-          else
-            echo "TF_VAR_rds_password is NOT set"
-          fi
-
       - name: "Terraform init and plan to JSON"
         env:
           TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
         run: |
           set -euo pipefail
           mkdir -p input
-          terraform -chdir=terraform/scenarios/${SCENARIO} init -input=false
+          terraform -chdir=terraform/scenarios/${SCENARIO} init -input=false -reconfigure \
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+          -backend-config="region=${{ vars.TF_STATE_REGION }}" \
+          -backend-config="dynamodb_table=${{ vars.TF_LOCK_TABLE }}" \
+          -backend-config="key=grc-aws-automation/${SCENARIO}/terraform.tfstate"
           terraform -chdir=terraform/scenarios/${SCENARIO} plan -input=false -out=$LAB_ROOT/input/tfplan.bin
           terraform -chdir=terraform/scenarios/${SCENARIO} show -json $LAB_ROOT/input/tfplan.bin > input/tfplan.json
 
@@ -92,5 +77,7 @@ jobs:
           conftest test input/tfplan.json -p policy --namespace plan
 
       - name: Terraform Apply
+        env:
+          TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
         run: |
           terraform -chdir=terraform/scenarios/${SCENARIO} apply -input=false -auto-approve $LAB_ROOT/input/tfplan.bin
