@@ -15,3 +15,10 @@
 *.bin
 .crash.log
 
+# Terraform plan outputs
+tfplan.json
+tfplan.bin
+
+# TF files to exclude
+main.tf
+backend.tf
