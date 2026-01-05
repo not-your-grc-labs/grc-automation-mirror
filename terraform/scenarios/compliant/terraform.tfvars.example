@@ -1,0 +1,20 @@
+# defines example values for variables in variables.tf
+
+region = "region"
+
+ami= "ami-XYZ
+
+MySessionManagerRole = "Role"
+
+vpc_cidr = "A.B.C.D/24"
+int1_cidr = "A.B.C.D/26"
+int2_cidr = "A.B.C.D/26"
+dmz1_cidr = "A.B.C.D/26"
+dmz2_cidr = "A.B.C.D/26"
+
+ssm_profile = "Role"
+
+home_ip = "A.B.C.D/32"
+
+rds_username = "name"
+deployment_role = "role-arn"

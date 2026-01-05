@@ -67,3 +67,7 @@ variable "rds_password" {
   sensitive = true
 }
 
+variable "deployment_role" {
+  description = "IAM role ARN for Terraform to assume during deployment"
+  type        = string
+}

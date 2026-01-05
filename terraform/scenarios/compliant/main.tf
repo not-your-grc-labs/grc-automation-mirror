@@ -10,6 +10,6 @@ terraform {
 provider "aws" {
   region = "eu-west-2"
   assume_role {
-    role_arn = "arn:aws:iam::613208686879:role/TerraformDeployment"
+    role_arn = var.deployment_role
   } 
 }

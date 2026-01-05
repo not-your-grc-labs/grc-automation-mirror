@@ -15,6 +15,9 @@
 *.bin
 .crash.log
 
+backend.hcl
+**/backend.hcl
+
 # Terraform plan outputs
 tfplan.json
 tfplan.bin

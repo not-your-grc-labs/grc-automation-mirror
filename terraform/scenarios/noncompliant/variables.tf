@@ -66,3 +66,8 @@ variable "rds_password" {
   type        = string
   sensitive = true
 }
+
+variable "deployment_role" {
+  description = "The ARN of the role to assume for deployments"
+  type        = string
+}
