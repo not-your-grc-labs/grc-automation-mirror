@@ -20,5 +20,5 @@ tfplan.json
 tfplan.bin
 
 # TF files to exclude
-main.tf
-backend.tf
+#main.tf
+#backend.tf
