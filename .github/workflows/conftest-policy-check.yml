@@ -20,6 +20,22 @@ jobs:
   conftest:
     runs-on: ubuntu-latest
 
+    env:
+      TF_VAR_region: ${{ vars.TF_VAR_region }}
+      TF_VAR_ami: ${{ vars.TF_VAR_ami }}
+      TF_VAR_instance_type: ${{ vars.TF_VAR_instance_type }}
+      TF_VAR_MySessionManagerRole: ${{ vars.TF_VAR_MySessionManagerRole }}
+      TF_VAR_vpc_cidr: ${{ vars.TF_VAR_vpc_cidr }}
+      TF_VAR_int1_cidr: ${{ vars.TF_VAR_int1_cidr }}
+      TF_VAR_int2_cidr: ${{ vars.TF_VAR_int2_cidr }}
+      TF_VAR_dmz1_cidr: ${{ vars.TF_VAR_dmz1_cidr }}
+      TF_VAR_dmz2_cidr: ${{ vars.TF_VAR_dmz2_cidr }}
+      TF_VAR_ssm_profile: ${{ vars.TF_VAR_ssm_profile }}
+      TF_VAR_home_ip: ${{ vars.TF_VAR_home_ip }}
+      TF_VAR_rds_username: ${{ vars.TF_VAR_rds_username }}
+      TF_VAR_deployment_role: ${{ vars.TF_VAR_deployment_role }}
+      TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
+
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v4
