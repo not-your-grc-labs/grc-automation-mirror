@@ -42,7 +42,7 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::526053389648:role/github-terraform-ci-ops
+          role-to-assume: arn:aws:iam::<ACC_ID>:role/github-terraform-ci-ops
           aws-region: eu-west-2
 
       - uses: hashicorp/setup-terraform@v3
