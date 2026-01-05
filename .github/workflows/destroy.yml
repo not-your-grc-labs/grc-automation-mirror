@@ -17,6 +17,26 @@ jobs:
     if: ${{ github.event.inputs.confirm == 'DESTROY' }}
     runs-on: ubuntu-latest
 
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+
+      # Terraform input variables (repo variables + secret)
+      TF_VAR_region: ${{ vars.TF_VAR_region }}
+      TF_VAR_ami: ${{ vars.TF_VAR_ami }}
+      TF_VAR_instance_type: ${{ vars.TF_VAR_instance_type }}
+      TF_VAR_MySessionManagerRole: ${{ vars.TF_VAR_MySessionManagerRole }}
+      TF_VAR_vpc_cidr: ${{ vars.TF_VAR_vpc_cidr }}
+      TF_VAR_int1_cidr: ${{ vars.TF_VAR_int1_cidr }}
+      TF_VAR_int2_cidr: ${{ vars.TF_VAR_int2_cidr }}
+      TF_VAR_dmz1_cidr: ${{ vars.TF_VAR_dmz1_cidr }}
+      TF_VAR_dmz2_cidr: ${{ vars.TF_VAR_dmz2_cidr }}
+      TF_VAR_ssm_profile: ${{ vars.TF_VAR_ssm_profile }}
+      TF_VAR_home_ip: ${{ vars.TF_VAR_home_ip }}
+      TF_VAR_rds_username: ${{ vars.TF_VAR_rds_username }}
+      TF_VAR_deployment_role: ${{ vars.TF_VAR_deployment_role }}
+      TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -30,11 +50,13 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Terraform Init (compliant)
-        run: terraform -chdir=terraform/scenarios/compliant init -reconfigure -input=false
+        run: |
+          terraform -chdir=terraform/scenarios/compliant init -reconfigure -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="region=${{ vars.TF_STATE_REGION }}" \
+            -backend-config="dynamodb_table=${{ vars.TF_LOCK_TABLE }}" \
+            -backend-config="key=grc-aws-automation/compliant/terraform.tfstate"
 
       - name: Terraform Destroy (compliant)
-        env:
-          TF_IN_AUTOMATION: "true"
-          TF_INPUT: "false"
-          TF_VAR_rds_password: ${{ secrets.TF_VAR_RDS_SECRET }}
-        run: terraform -chdir=terraform/scenarios/compliant destroy -auto-approve -input=false
+        run: |
+          terraform -chdir=terraform/scenarios/compliant destroy -auto-approve -input=false
