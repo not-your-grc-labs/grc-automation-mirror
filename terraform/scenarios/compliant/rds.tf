@@ -6,7 +6,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
     Name        = "RDS Subnet Group"
     environment = "prod"
     owner       = "Andrew"
-    public_facing = false 
+    public_facing = true 
     managed_by  = "Terraform"
   }
 }
