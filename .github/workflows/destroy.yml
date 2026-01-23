@@ -63,4 +63,4 @@ jobs:
           
       - name: Terraform Destroy (noncompliant)
         run: |
-          terraform -chdir=terraform/scenarios/compliant destroy -auto-approve -input=false
+          terraform -chdir=terraform/scenarios/noncompliant destroy -auto-approve -input=false
