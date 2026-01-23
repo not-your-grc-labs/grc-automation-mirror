@@ -1,4 +1,4 @@
-package plan
+package tagging
 import rego.v1
 
 # Intent: Ensure all tags are defined for storing data - applies to storage resources only (e.g., S3 buckets, EBS volumes, Databases and Instance).

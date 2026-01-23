@@ -1,4 +1,4 @@
-package plan
+package encryption
 import rego.v1
 
 deny contains msg if {
