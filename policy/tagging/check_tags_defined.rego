@@ -22,7 +22,7 @@ public_facing_tags := {
     "false"
 }
 
-# Empty tags
+# Check for empty tags
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types
@@ -32,7 +32,7 @@ deny contains msg if {
     msg := sprintf("Missing tags for %v (%v)", [r.address, r.type])
 }
 
-# Environment tags defined
+# Check environment tags not defined
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types
@@ -43,7 +43,7 @@ deny contains msg if {
     msg := sprintf("Environment tag not defined or invalid for %v (%v)", [r.address, r.type])
 }
 
-# Public facing tags defined
+# Public facing tags not defined
 deny contains msg if {
     r := input.resource_changes[_]
     r.type in storage_types

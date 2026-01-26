@@ -1,6 +1,7 @@
 package encryption
 import rego.v1
 
+# Check rds cluster is encrypted
 deny contains msg if {
   rc := input.resource_changes[_]
   rc.type == "aws_rds_cluster"
