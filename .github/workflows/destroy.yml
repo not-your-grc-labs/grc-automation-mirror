@@ -59,8 +59,8 @@ jobs:
 
       - name: Sanity check - show what Terraform thinks exists
         run: |
-          terraform -chdir=terraform/scenarios/noncompliant state list
+          terraform -chdir=terraform/scenarios/compliant state list
           
-      - name: Terraform Destroy (noncompliant)
+      - name: Terraform Destroy (compliant)
         run: |
-          terraform -chdir=terraform/scenarios/noncompliant destroy -auto-approve -input=false
+          terraform -chdir=terraform/scenarios/compliant destroy -auto-approve -input=false
