@@ -90,7 +90,7 @@ jobs:
       - name: "Conftest test (namespace plan)"
         run: |
           set -euo pipefail
-          conftest test input/tfplan.json -p policy --namespace plan
+          conftest test input/tfplan.json -p policy --all-namespaces
 
       - name: Terraform Apply
         env:
