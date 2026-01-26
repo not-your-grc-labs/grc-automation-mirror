@@ -18,6 +18,16 @@ resource "aws_s3_bucket_website_configuration" "public_website" {
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "public_website" {
+  bucket = aws_s3_bucket.public_website.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "aws:kms:dsse" # Invalid encryption algorithm
+    }
+  }
+}
+
 resource "aws_s3_bucket_public_access_block" "public_website" {
   bucket = aws_s3_bucket.public_website.id
 
@@ -42,16 +52,6 @@ resource "aws_s3_bucket_policy" "public_website" {
       }
     ]
   })
-}
-
-resource "aws_s3_bucket_server_side_encryption_configuration" "public_website" {
-  bucket = aws_s3_bucket.public_website.id
-
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
 }
 
 resource "aws_s3_object" "index_html" {
