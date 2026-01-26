@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "public_website" {
 
   tags = {
     environment = "prod"
-    public      = "true"
+    public_facing = "true"
     data_class  = "public"
     managed_by  = "terraform"
   }
@@ -77,7 +77,7 @@ resource "aws_s3_bucket" "internal_logs" {
 
   tags = {
     environment = "prod"
-    public      = "false"
+    public_facing = "false"
     data_class  = "restricted"
     managed_by  = "terraform"
   }
