@@ -51,11 +51,11 @@ jobs:
 
       - name: Terraform Init (noncompliant)
         run: |
-          terraform -chdir=terraform/scenarios/noncompliant init -reconfigure -input=false \
+          terraform -chdir=terraform/scenarios/compliant init -reconfigure -input=false \
             -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
             -backend-config="region=${{ vars.TF_STATE_REGION }}" \
             -backend-config="dynamodb_table=${{ vars.TF_LOCK_TABLE }}" \
-            -backend-config="key=grc-aws-automation/noncompliant/terraform.tfstate"
+            -backend-config="key=grc-aws-automation/compliant/terraform.tfstate"
 
       - name: Sanity check - show what Terraform thinks exists
         run: |
