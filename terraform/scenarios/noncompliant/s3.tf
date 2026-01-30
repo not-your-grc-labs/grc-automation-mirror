@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "public_website" {
 
   tags = {
     environment = "prod"
-    public      = "true"
+    public_facing  = "true"
     data_class  = "public"
     managed_by  = "terraform"
   }
@@ -79,7 +79,7 @@ resource "aws_s3_bucket" "internal_logs" {
 
   tags = {
     environment = "prod"
-    public      = "false"
+    public_facing  = "false"
     data_class  = "restricted"
     managed_by  = "terraform"
   }
@@ -88,7 +88,7 @@ resource "aws_s3_bucket" "internal_logs" {
 resource "aws_s3_bucket_public_access_block" "internal_logs" {
   bucket = aws_s3_bucket.internal_logs.id
 
-  block_public_acls       = true
+  block_public_acls       = false
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
