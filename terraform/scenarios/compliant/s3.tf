@@ -42,6 +42,7 @@ resource "aws_s3_bucket_policy" "public_website" {
       }
     ]
   })
+  depends_on = [ aws_s3_bucket_public_access_block.public_website ]
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "public_website" {
