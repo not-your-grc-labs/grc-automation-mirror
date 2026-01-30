@@ -11,7 +11,7 @@ The objective of this lab is to showcase an end to end GRC architecture as follo
     - **Step 2 - Cloud Infratructure Layer (In Progress)** 
         - Detecitve controls via AWS Config, Inspector, GuadDuty and CloudTrail - this layer will embed controls which are detective and alert security teams of controls which contravene policy or standards.
         - Preventive controls via Lambda and SSM Run sheets.
-    - **Step 3 - Administrative Layer** 
+    - **Step 3 - Administrative Layer (In Progress)** 
         - Implement monitoring and alerting capabilities to inform operational security teams.
         - Generate compliance status, remediation and risk metrics to update GRC teams.
 
