@@ -72,6 +72,13 @@ resource "aws_s3_object" "index_html" {
 EOF
 }
 
+resource "aws_s3_object" "coffee_png" {
+  bucket       = aws_s3_bucket.public_website.id
+  key          = "coffee.png"
+  source       = "${path.module}/assets/coffee.png"   
+  content_type = "image/png"
+  etag         = filemd5("${path.module}/assets/coffee.png")
+}
 # -------------------------------------------------------------------
 
 resource "aws_s3_bucket" "internal_logs" {
