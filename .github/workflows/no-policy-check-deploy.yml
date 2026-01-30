@@ -1,4 +1,4 @@
-name: Deploy Terraform (Lab)
+name: no-policy-check-deploy
 
 on:
   workflow_dispatch:
