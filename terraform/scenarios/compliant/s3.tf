@@ -63,7 +63,7 @@ resource "aws_s3_object" "index_html" {
 <html>
   <head><title>Public Demo</title></head>
   <body>
-    h1>I Love Coffee! :-) </h1>
+    <h1>I Love Coffee! :-) </h1>
     <img src="coffee.png" alt="Logo" />
     <p>Terraform-managed content</p>
   </body>

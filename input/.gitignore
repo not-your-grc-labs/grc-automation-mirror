@@ -12,7 +12,7 @@
 *.tfvars
 *.tfvars.json
 *.tfplan
-*.bin
+*.bingit
 .crash.log
 
 # Terraform plan outputs
