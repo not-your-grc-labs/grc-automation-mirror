@@ -11,6 +11,7 @@
 *.tfstate.*
 *.tfvars
 *.tfvars.json
+*.json
 *.tfplan
 *.bingit
 .crash.log
