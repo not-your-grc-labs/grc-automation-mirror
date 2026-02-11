@@ -42,6 +42,10 @@ resource "aws_s3_bucket_policy" "public_website" {
       }
     ]
   })
+<<<<<<< HEAD
+=======
+  depends_on = [ aws_s3_bucket_public_access_block.public_website ]
+>>>>>>> main
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "public_website" {
@@ -63,7 +67,11 @@ resource "aws_s3_object" "index_html" {
 <html>
   <head><title>Public Demo</title></head>
   <body>
+<<<<<<< HEAD
     h1>I Love Coffee! :-) </h1>
+=======
+    <h1>I Love Coffee! :-) </h1>
+>>>>>>> main
     <img src="coffee.png" alt="Logo" />
     <p>Terraform-managed content</p>
   </body>
@@ -71,6 +79,18 @@ resource "aws_s3_object" "index_html" {
 EOF
 }
 
+<<<<<<< HEAD
+=======
+resource "aws_s3_object" "coffee_png" {
+  bucket       = aws_s3_bucket.public_website.id
+  key          = "coffee.png"
+  source       = "${path.module}/assets/coffee.png"   
+  content_type = "image/png"
+  etag         = filemd5("${path.module}/assets/coffee.png")
+}
+
+
+>>>>>>> main
 # -------------------------------------------------------------------
 
 resource "aws_s3_bucket" "internal_logs" {
